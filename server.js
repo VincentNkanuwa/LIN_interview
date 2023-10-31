@@ -30,25 +30,25 @@ app.post('/zipatala/create', (req, res)=>{
     districtId : req.body.districtId,
     ownerId : req.body.ownerId
   };
-    if(!req.body.facility_name){
-      res.status(400).send({ message: "Name cannot be empty" });
+
+  if(!req.body.facility_name){
+    res.status(400).send({ message: "Name cannot be empty" });
+    return;
+  }
+  if(!req.body.facility_code){
+    res.status(400).send({ message: "code can not be empty!" });
+    return;
+  }
+  if(!req.body.districtId){
+      res.status(400).send({ message: "district can not be empty!" });
       return;
-    }
-    if(!req.body.facility_code){
-      res.status(400).send({ message: "code can not be empty!" });
-      return;
-    }
-    if(!req.body.districtId){
-        res.status(400).send({ message: "district can not be empty!" });
-        return;
-      }
-    if(!req.body.ownerId){
-      res.status(400).send({ message: "owner can not be empty!" });
-      return;
-    }else{      
-      const facility = Facility.create(facilityData)
+  }
+  if(!req.body.ownerId){
+    res.status(400).send({ message: "owner can not be empty!" });
+    return;
+  }else{      
+    const facility = Facility.create(facilityData)
     res.status(201).send(facility)
-        .save()
         .then(facility=>{
           res.status(201).json({'contact' : 'Fality added successfully'});
         })
@@ -58,7 +58,7 @@ app.post('/zipatala/create', (req, res)=>{
               err.message || "Some error occurred while creating the Tutorial."
           });
         })
-  
+
     }
   })
 
@@ -76,7 +76,7 @@ app.post('/zipatala/create', (req, res)=>{
 
 
 
-const PORT =  3001
+const PORT =  4001
 
 app.listen(PORT, ()=>{
     console.log(`Server is running from ${PORT}`);

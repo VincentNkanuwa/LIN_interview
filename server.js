@@ -62,6 +62,18 @@ app.post('/zipatala/create', (req, res)=>{
     }
   })
 
+  // search by name
+  app.post('/zipatala/search/:key', async(req, res)=>{
+    let data = await Contact.find(
+      {
+        "$or":[
+          {last_name:{$regex:req.params.key}}
+        ]
+      }
+    )
+    res.send(data)
+  })
+
 
 
 const PORT =  3001

@@ -22,7 +22,7 @@ app.get('/', (req, res, next)=>{
 
 
 // controllers : add facility function
-app.post('/zipatala/create', (req, res)=>{
+app.post('/zipatala/create', async(req, res)=>{
 
   let facilityData = {
     facility_name : req.body.facility_name,
@@ -47,19 +47,9 @@ app.post('/zipatala/create', (req, res)=>{
     res.status(400).send({ message: "owner can not be empty!" });
     return;
   }else{      
-    const facility = Facility.create(facilityData)
-    res.status(201).send(facility)
-        .then(facility=>{
-          res.status(201).json({'contact' : 'Fality added successfully'});
-        })
-        .catch(err=>{
-          res.status(500).send({
-            message:
-              err.message || "Some error occurred while creating the Tutorial."
-          });
-        })
-
-    }
+    const facility = await Facility.create(facilityData)
+    res.status(201).send(facility) 
+  }
   })
 
   // search by name
